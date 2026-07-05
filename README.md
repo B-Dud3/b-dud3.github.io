@@ -28,6 +28,7 @@ deployed to GitHub Pages at https://b-dud3.github.io/Personal-Website/.
    date: 2026-01-15
    featured: false   # true pins it to the front of the grid
    github: https://github.com/B-Dud3/repo   # optional
+   demo: https://example.com/live-demo      # optional
    ---
    ```
 
