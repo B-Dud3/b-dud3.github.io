@@ -1,14 +1,14 @@
 # brandon-liwang — personal engineering portfolio
 
 Portfolio site for Brandon LiWang. Built with [Astro](https://astro.build),
-deployed to GitHub Pages at https://b-dud3.github.io/Personal-Website/.
+deployed to GitHub Pages at https://b-dud3.github.io/.
 
 ## Commands
 
 | Command           | Action                                        |
 | ----------------- | --------------------------------------------- |
 | `npm install`     | Install dependencies                          |
-| `npm run dev`     | Local dev server at localhost:4321/Personal-Website/ |
+| `npm run dev`     | Local dev server at localhost:4321/                  |
 | `npm run build`   | Production build to `dist/`                   |
 | `npm run preview` | Preview the production build locally          |
 | `npm test`        | Verify the built output (run build first)     |

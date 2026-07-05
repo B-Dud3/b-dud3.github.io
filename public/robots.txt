@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://b-dud3.github.io/Personal-Website/sitemap-index.xml
+Sitemap: https://b-dud3.github.io/sitemap-index.xml

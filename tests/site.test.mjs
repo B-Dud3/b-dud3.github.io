@@ -25,7 +25,7 @@ test('home page has skills and experience content', () => {
 
 test('resume PDF is published and linked', () => {
   assert.ok(existsSync('dist/resume.pdf'), 'dist/resume.pdf missing');
-  assert.match(home(), /\/Personal-Website\/resume\.pdf/);
+  assert.match(home(), /\/resume\.pdf/);
 });
 
 test('home page lists the three published projects only', () => {
@@ -37,8 +37,8 @@ test('home page lists the three published projects only', () => {
   assert.equal(h.split('card-link').length - 1, 3);
 });
 
-test('project cards link through the base path', () => {
-  assert.match(home(), /href="\/Personal-Website\/projects\/ugv-methane\/"/);
+test('project cards link to their project pages', () => {
+  assert.match(home(), /href="\/projects\/ugv-methane\/"/);
 });
 
 test('published projects have pages; draft does not', () => {
@@ -51,7 +51,7 @@ test('published projects have pages; draft does not', () => {
 test('UGV case study includes the publication and a home link', () => {
   const h = readFileSync('dist/projects/ugv-methane/index.html', 'utf8');
   assert.match(h, /empirical observability Gramian/);
-  assert.match(h, /href="\/Personal-Website\/"/);
+  assert.match(h, /href="\/"/);
 });
 
 test('404 page exists', () => {
@@ -73,10 +73,10 @@ test('rolling sensor platform is framed solo', () => {
 
 test('persistent header nav on home and project pages', () => {
   for (const html of [home(), readFileSync('dist/projects/ugv-methane/index.html', 'utf8')]) {
-    assert.match(html, /href="\/Personal-Website\/#projects"/);
-    assert.match(html, /href="\/Personal-Website\/#experience"/);
-    assert.match(html, /href="\/Personal-Website\/#skills"/);
-    assert.match(html, /href="\/Personal-Website\/resume\.pdf"/);
+    assert.match(html, /href="\/#projects"/);
+    assert.match(html, /href="\/#experience"/);
+    assert.match(html, /href="\/#skills"/);
+    assert.match(html, /href="\/resume\.pdf"/);
   }
 });
 
@@ -96,12 +96,12 @@ test('prev/next links follow grid order without wraparound', () => {
   const ugv = readFileSync('dist/projects/ugv-methane/index.html', 'utf8');
   const mid = readFileSync('dist/projects/rolling-sensor-platform/index.html', 'utf8');
   const last = readFileSync('dist/projects/high-five-counter/index.html', 'utf8');
-  assert.match(ugv, /href="\/Personal-Website\/projects\/rolling-sensor-platform\/"/);
-  assert.doesNotMatch(ugv, /href="\/Personal-Website\/projects\/high-five-counter\/"/);
-  assert.match(mid, /href="\/Personal-Website\/projects\/ugv-methane\/"/);
-  assert.match(mid, /href="\/Personal-Website\/projects\/high-five-counter\/"/);
-  assert.match(last, /href="\/Personal-Website\/projects\/rolling-sensor-platform\/"/);
-  assert.doesNotMatch(last, /href="\/Personal-Website\/projects\/ugv-methane\/"/);
+  assert.match(ugv, /href="\/projects\/rolling-sensor-platform\/"/);
+  assert.doesNotMatch(ugv, /href="\/projects\/high-five-counter\/"/);
+  assert.match(mid, /href="\/projects\/ugv-methane\/"/);
+  assert.match(mid, /href="\/projects\/high-five-counter\/"/);
+  assert.match(last, /href="\/projects\/rolling-sensor-platform\/"/);
+  assert.doesNotMatch(last, /href="\/projects\/ugv-methane\/"/);
 });
 
 test('project dates render on cards and case-study pages', () => {
@@ -123,17 +123,17 @@ test('publication is a highlighted callout inside experience', () => {
 
 test('OG and twitter tags with correct images', () => {
   const h = home();
-  assert.match(h, /property="og:image" content="https:\/\/b-dud3\.github\.io\/Personal-Website\/og-default\.jpg"/);
+  assert.match(h, /property="og:image" content="https:\/\/b-dud3\.github\.io\/og-default\.jpg"/);
   assert.match(h, /name="twitter:card" content="summary_large_image"/);
   const ugv = readFileSync('dist/projects/ugv-methane/index.html', 'utf8');
-  assert.match(ugv, /property="og:image" content="https:\/\/b-dud3\.github\.io\/Personal-Website\/_astro\/[^"]+\.jpg"/);
+  assert.match(ugv, /property="og:image" content="https:\/\/b-dud3\.github\.io\/_astro\/[^"]+\.jpg"/);
 });
 
 test('canonical URLs are absolute', () => {
-  assert.match(home(), /rel="canonical" href="https:\/\/b-dud3\.github\.io\/Personal-Website\/"/);
+  assert.match(home(), /rel="canonical" href="https:\/\/b-dud3\.github\.io\/"/);
   assert.match(
     readFileSync('dist/projects/ugv-methane/index.html', 'utf8'),
-    /rel="canonical" href="https:\/\/b-dud3\.github\.io\/Personal-Website\/projects\/ugv-methane\/"/
+    /rel="canonical" href="https:\/\/b-dud3\.github\.io\/projects\/ugv-methane\/"/
   );
 });
 
@@ -150,6 +150,6 @@ test('JSON-LD Person schema on home', () => {
 
 test('robots.txt and sitemap are published', () => {
   assert.ok(existsSync('dist/robots.txt'));
-  assert.match(readFileSync('dist/robots.txt', 'utf8'), /Sitemap: https:\/\/b-dud3\.github\.io\/Personal-Website\/sitemap-index\.xml/);
+  assert.match(readFileSync('dist/robots.txt', 'utf8'), /Sitemap: https:\/\/b-dud3\.github\.io\/sitemap-index\.xml/);
   assert.ok(existsSync('dist/sitemap-index.xml'));
 });
