@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { getPublishedProjects } from '../../utils/projects';
+
+const projects = await getPublishedProjects();
+---
+<BaseLayout
+  title="Projects — Brandon LiWang"
+  description="All engineering projects by Brandon LiWang: robotics, autonomous sensing, and embedded systems."
+>
+  <SiteHeader />
+  <main class="container section">
+    <h1>Projects</h1>
+    <div class="grid">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </main>
+  <SiteFooter />
+</BaseLayout>

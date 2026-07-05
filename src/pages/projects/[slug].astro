@@ -1,28 +1,39 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
+import { getPublishedProjects, type Project } from '../../utils/projects';
+import { formatDate } from '../../utils/dates';
 import { url } from '../../utils/paths';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects');
-  return projects.map((project) => ({
+  const projects = await getPublishedProjects();
+  const linkOf = (p: Project) => ({ id: p.id, title: p.data.title });
+  return projects.map((project, i) => ({
     params: { slug: project.id },
-    props: { project },
+    props: {
+      project,
+      prev: i > 0 ? linkOf(projects[i - 1]) : null,
+      next: i < projects.length - 1 ? linkOf(projects[i + 1]) : null,
+    },
   }));
 }
 
-const { project } = Astro.props;
+const { project, prev, next } = Astro.props;
 const { Content } = await render(project);
 ---
-<BaseLayout title={`${project.data.title} — Brandon LiWang`} description={project.data.summary}>
-  <nav class="container topbar">
-    <a href={url('/')}>← Brandon LiWang</a>
-  </nav>
+<BaseLayout
+  title={`${project.data.title} — Brandon LiWang`}
+  description={project.data.summary}
+  ogImage={project.data.cover.src}
+>
+  <SiteHeader />
   <main class="container section">
     <article class="prose">
       <h1>{project.data.title}</h1>
+      <p class="muted pagedate">{formatDate(project.data.date)}</p>
       <div class="tags">
         {project.data.tags.map((tag) => <span class="tag">{tag}</span>)}
       </div>
@@ -33,18 +44,42 @@ const { Content } = await render(project);
         widths={[720, 1200]}
         sizes="(max-width: 760px) 100vw, 720px"
       />
+      {project.data.role && (
+        <aside class="role"><strong>My role:</strong> {project.data.role}</aside>
+      )}
       {project.data.github && <p><a href={project.data.github}>View on GitHub</a></p>}
       {project.data.demo && <p><a href={project.data.demo}>Live demo</a></p>}
       <Content />
-      <p><a href={url('/#projects')}>← Back to all projects</a></p>
+      <p><a href={url('/projects/')}>← Back to all projects</a></p>
     </article>
+    <nav class="pn">
+      {prev ? <a href={url(`/projects/${prev.id}/`)}>← {prev.title}</a> : <span />}
+      {next ? <a href={url(`/projects/${next.id}/`)}>{next.title} →</a> : <span />}
+    </nav>
   </main>
   <SiteFooter />
 </BaseLayout>
 
 <style>
-  .topbar { padding: 1.25rem; font-weight: 600; }
-  .topbar a { text-decoration: none; }
+  .pagedate { margin: -0.4rem 0 0.75rem; font-size: 0.9rem; }
   .tags { margin-bottom: 1.25rem; }
   .hero-image { border-radius: var(--radius); }
+  .role {
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    margin: 1.25rem 0;
+    max-width: 720px;
+  }
+  .pn {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    max-width: 720px;
+    margin-top: 2.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .pn a { text-decoration: none; font-weight: 600; }
 </style>

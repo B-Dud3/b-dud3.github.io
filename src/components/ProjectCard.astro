@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { url } from '../utils/paths';
+import { formatDate } from '../utils/dates';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -22,6 +23,11 @@ const { project } = Astro.props;
       <div>
         {project.data.tags.map((tag) => <span class="tag">{tag}</span>)}
       </div>
+      <p class="muted carddate">{formatDate(project.data.date)}</p>
     </div>
   </a>
 </article>
+
+<style>
+  .carddate { font-size: 0.8rem; margin: 0.6rem 0 0; }
+</style>

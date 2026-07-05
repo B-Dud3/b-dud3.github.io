@@ -1,22 +1,20 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import Hero from '../components/Hero.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SkillsSection from '../components/SkillsSection.astro';
 import ExperienceSection from '../components/ExperienceSection.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { getPublishedProjects } from '../utils/projects';
 
-const projects = (await getCollection('projects')).sort(
-  (a, b) =>
-    Number(b.data.featured) - Number(a.data.featured) ||
-    b.data.date.valueOf() - a.data.date.valueOf()
-);
+const projects = await getPublishedProjects();
 ---
 <BaseLayout
   title="Brandon LiWang — Mechanical Engineer"
   description="Portfolio of Brandon LiWang: autonomous sensing platforms, robotics, and embedded systems. UC Berkeley Mechanical Engineering."
 >
+  <SiteHeader />
   <Hero />
   <main>
     <section class="container section" id="projects">
@@ -25,8 +23,8 @@ const projects = (await getCollection('projects')).sort(
         {projects.map((project) => <ProjectCard project={project} />)}
       </div>
     </section>
-    <SkillsSection />
     <ExperienceSection />
+    <SkillsSection />
   </main>
   <SiteFooter />
 </BaseLayout>

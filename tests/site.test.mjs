@@ -28,25 +28,24 @@ test('resume PDF is published and linked', () => {
   assert.match(home(), /\/Personal-Website\/resume\.pdf/);
 });
 
-test('home page lists all four projects', () => {
+test('home page lists the three published projects only', () => {
   const h = home();
   assert.match(h, /Methane-Seeking Unmanned Ground Vehicle/);
   assert.match(h, /Handheld Rolling Sensor Platform/);
   assert.match(h, /Machine Learning High-Five Counter/);
-  assert.match(h, /3D Printed Bow Quiver/);
+  assert.doesNotMatch(h, /3D Printed Bow Quiver/);
+  assert.equal(h.split('card-link').length - 1, 3);
 });
 
 test('project cards link through the base path', () => {
   assert.match(home(), /href="\/Personal-Website\/projects\/ugv-methane\/"/);
 });
 
-test('every project has a case-study page', () => {
-  for (const slug of ['ugv-methane', 'rolling-sensor-platform', 'high-five-counter', 'bow-quiver']) {
-    assert.ok(
-      existsSync(`dist/projects/${slug}/index.html`),
-      `missing dist/projects/${slug}/index.html`
-    );
+test('published projects have pages; draft does not', () => {
+  for (const slug of ['ugv-methane', 'rolling-sensor-platform', 'high-five-counter']) {
+    assert.ok(existsSync(`dist/projects/${slug}/index.html`), `missing ${slug}`);
   }
+  assert.ok(!existsSync('dist/projects/bow-quiver/index.html'), 'draft bow-quiver was built');
 });
 
 test('UGV case study includes the publication and a home link', () => {
@@ -70,4 +69,47 @@ test('rolling sensor platform is framed solo', () => {
   const h = readFileSync('dist/projects/rolling-sensor-platform/index.html', 'utf8');
   assert.match(h, /I needed a low-cost/);
   assert.doesNotMatch(h, /We needed/);
+});
+
+test('persistent header nav on home and project pages', () => {
+  for (const html of [home(), readFileSync('dist/projects/ugv-methane/index.html', 'utf8')]) {
+    assert.match(html, /href="\/Personal-Website\/#projects"/);
+    assert.match(html, /href="\/Personal-Website\/#experience"/);
+    assert.match(html, /href="\/Personal-Website\/#skills"/);
+    assert.match(html, /href="\/Personal-Website\/resume\.pdf"/);
+  }
+});
+
+test('home sections are ordered Projects, Experience, Skills', () => {
+  const h = home();
+  assert.ok(h.indexOf('id="projects"') < h.indexOf('id="experience"'), 'projects before experience');
+  assert.ok(h.indexOf('id="experience"') < h.indexOf('id="skills"'), 'experience before skills');
+});
+
+test('/projects/ index page lists the three published projects', () => {
+  assert.ok(existsSync('dist/projects/index.html'));
+  const h = readFileSync('dist/projects/index.html', 'utf8');
+  assert.equal(h.split('card-link').length - 1, 3);
+});
+
+test('prev/next links follow grid order without wraparound', () => {
+  const ugv = readFileSync('dist/projects/ugv-methane/index.html', 'utf8');
+  const mid = readFileSync('dist/projects/rolling-sensor-platform/index.html', 'utf8');
+  const last = readFileSync('dist/projects/high-five-counter/index.html', 'utf8');
+  assert.match(ugv, /href="\/Personal-Website\/projects\/rolling-sensor-platform\/"/);
+  assert.doesNotMatch(ugv, /href="\/Personal-Website\/projects\/high-five-counter\/"/);
+  assert.match(mid, /href="\/Personal-Website\/projects\/ugv-methane\/"/);
+  assert.match(mid, /href="\/Personal-Website\/projects\/high-five-counter\/"/);
+  assert.match(last, /href="\/Personal-Website\/projects\/rolling-sensor-platform\/"/);
+  assert.doesNotMatch(last, /href="\/Personal-Website\/projects\/ugv-methane\/"/);
+});
+
+test('project dates render on cards and case-study pages', () => {
+  const h = home();
+  for (const d of ['Aug 2025', 'Mar 2025', 'Dec 2024']) assert.match(h, new RegExp(d));
+  assert.match(readFileSync('dist/projects/ugv-methane/index.html', 'utf8'), /Aug 2025/);
+});
+
+test('UGV page shows the My role callout', () => {
+  assert.match(readFileSync('dist/projects/ugv-methane/index.html', 'utf8'), /My role:/);
 });

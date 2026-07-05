@@ -1,0 +1,34 @@
+---
+import { site } from '../data/site';
+import { url } from '../utils/paths';
+---
+<header class="siteheader">
+  <nav class="container">
+    <a class="brand" href={url('/')}>{site.name}</a>
+    <div class="links">
+      <a href={url('/#projects')}>Projects</a>
+      <a href={url('/#experience')}>Experience</a>
+      <a href={url('/#skills')}>Skills</a>
+      <a href={url('/resume.pdf')}>Resume</a>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .siteheader {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav { display: flex; align-items: center; justify-content: space-between; padding-top: 0.65rem; padding-bottom: 0.65rem; }
+  .brand { font-weight: 800; color: var(--text); text-decoration: none; }
+  .links { display: flex; gap: 1.1rem; flex-wrap: wrap; }
+  .links a { text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+  @media (max-width: 420px) {
+    .links { gap: 0.7rem; }
+    .links a { font-size: 0.82rem; }
+  }
+</style>
