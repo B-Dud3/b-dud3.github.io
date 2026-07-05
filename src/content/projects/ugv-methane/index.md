@@ -1,11 +1,12 @@
 ---
 title: Methane-Seeking Unmanned Ground Vehicle
-summary: An autonomous UGV that hunts down methane sources — published in IEEE.
+summary: An autonomous UGV that hunts down methane sources — accepted for publication in IEEE.
 cover: ./cover.png
 coverAlt: Top-down view of the UGV showing the GPS module, Pixhawk flight controller, and Raspberry Pi mounted on an orange acrylic plate
 tags: [Raspberry Pi, Pixhawk, Arduino, Python, CAD, Sensors]
 date: 2025-08-01
 featured: true
+role: I designed the modular sensor housings and mounting architecture, implemented the two-phase waypoint algorithm (area-enclosing sweep → concentration-guided convergence), and integrated the Raspberry Pi, Pixhawk, and sensor subsystems into one platform.
 ---
 
 ## Why
@@ -32,4 +33,4 @@ Built at the UC Merced MESA Lab, the platform combines:
 ## Publication
 
 *A low-cost autonomous diffusing gas source detection system with a UGV and
-empirical observability Gramian* — IEEE (published).
+empirical observability Gramian* — IEEE (accepted, in press).

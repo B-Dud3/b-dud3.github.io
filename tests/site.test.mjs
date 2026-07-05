@@ -58,3 +58,16 @@ test('UGV case study includes the publication and a home link', () => {
 test('404 page exists', () => {
   assert.ok(existsSync('dist/404.html'));
 });
+
+test('paper is described as accepted, not published', () => {
+  const h = home();
+  assert.match(h, /accepted for publication in IEEE/);
+  assert.match(h, /Accepted \(in press\)/);
+  assert.doesNotMatch(h, /published in IEEE/i);
+});
+
+test('rolling sensor platform is framed solo', () => {
+  const h = readFileSync('dist/projects/rolling-sensor-platform/index.html', 'utf8');
+  assert.match(h, /I needed a low-cost/);
+  assert.doesNotMatch(h, /We needed/);
+});

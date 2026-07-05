@@ -9,7 +9,7 @@ date: 2025-03-01
 
 ## Why
 
-We needed a low-cost handheld sensor platform that could easily maneuver
+I needed a low-cost handheld sensor platform that could easily maneuver
 sensors under cars.
 
 ## What

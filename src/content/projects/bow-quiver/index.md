@@ -5,6 +5,7 @@ cover: ./cover.png
 coverAlt: Compound bow with the white 3D-printed side-mounted quiver installed
 tags: [CAD, 3D Printing, PETG]
 date: 2024-06-01
+draft: true
 ---
 
 ## Why

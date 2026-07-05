@@ -2,7 +2,7 @@ export const site = {
   name: 'Brandon LiWang',
   role: 'Mechanical Engineer · UC Berkeley',
   tagline:
-    'I design and build autonomous sensing platforms — the mechanical design, the embedded electronics, and the software in between. My methane-seeking UGV work is published in IEEE.',
+    'I design and build autonomous sensing platforms — the mechanical design, the embedded electronics, and the software in between. My methane-seeking UGV work is accepted for publication in IEEE.',
   email: 'liwang.brandon@gmail.com',
   github: 'https://github.com/B-Dud3',
   linkedin: 'https://www.linkedin.com/in/brandon-liwang-1a8792318',
@@ -44,6 +44,6 @@ export const site = {
     title:
       'A low-cost autonomous diffusing gas source detection system with a UGV and empirical observability Gramian',
     venue: 'IEEE',
-    status: 'Published',
+    status: 'Accepted (in press)',
   },
 };
