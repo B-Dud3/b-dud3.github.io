@@ -1,6 +1,6 @@
 ---
 import { render } from 'astro:content';
-import { Image } from 'astro:assets';
+import { getImage, Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
@@ -23,11 +23,12 @@ export async function getStaticPaths() {
 
 const { project, prev, next } = Astro.props;
 const { Content } = await render(project);
+const ogOptimized = await getImage({ src: project.data.cover, width: 1200, format: 'jpg' });
 ---
 <BaseLayout
   title={`${project.data.title} — Brandon LiWang`}
   description={project.data.summary}
-  ogImage={project.data.cover.src}
+  ogImage={ogOptimized.src}
 >
   <SiteHeader />
   <main class="container section">

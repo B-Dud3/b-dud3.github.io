@@ -126,7 +126,7 @@ test('OG and twitter tags with correct images', () => {
   assert.match(h, /property="og:image" content="https:\/\/b-dud3\.github\.io\/Personal-Website\/og-default\.jpg"/);
   assert.match(h, /name="twitter:card" content="summary_large_image"/);
   const ugv = readFileSync('dist/projects/ugv-methane/index.html', 'utf8');
-  assert.match(ugv, /property="og:image" content="https:\/\/b-dud3\.github\.io\/Personal-Website\/_astro\//);
+  assert.match(ugv, /property="og:image" content="https:\/\/b-dud3\.github\.io\/Personal-Website\/_astro\/[^"]+\.jpg"/);
 });
 
 test('canonical URLs are absolute', () => {

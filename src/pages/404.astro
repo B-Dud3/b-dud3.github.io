@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import { url } from '../utils/paths';
 ---
 <BaseLayout title="Page not found — Brandon LiWang" description="That page doesn't exist.">
+  <SiteHeader />
   <main class="container section">
     <h1>Page not found</h1>
     <p class="muted">That page doesn't exist (or moved).</p>
