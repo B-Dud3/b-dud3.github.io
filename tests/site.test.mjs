@@ -39,3 +39,22 @@ test('home page lists all four projects', () => {
 test('project cards link through the base path', () => {
   assert.match(home(), /href="\/Personal-Website\/projects\/ugv-methane\/"/);
 });
+
+test('every project has a case-study page', () => {
+  for (const slug of ['ugv-methane', 'rolling-sensor-platform', 'high-five-counter', 'bow-quiver']) {
+    assert.ok(
+      existsSync(`dist/projects/${slug}/index.html`),
+      `missing dist/projects/${slug}/index.html`
+    );
+  }
+});
+
+test('UGV case study includes the publication and a home link', () => {
+  const h = readFileSync('dist/projects/ugv-methane/index.html', 'utf8');
+  assert.match(h, /empirical observability Gramian/);
+  assert.match(h, /href="\/Personal-Website\/"/);
+});
+
+test('404 page exists', () => {
+  assert.ok(existsSync('dist/404.html'));
+});
