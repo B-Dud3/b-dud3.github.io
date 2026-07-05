@@ -1,0 +1,24 @@
+---
+import { site } from '../data/site';
+---
+<section class="container section" id="skills">
+  <h2 class="section-title">Skills</h2>
+  <div class="skills">
+    {site.skillGroups.map((group) => (
+      <div>
+        <h3>{group.label}</h3>
+        <ul>
+          {group.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .skills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  @media (max-width: 900px) { .skills { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .skills { grid-template-columns: 1fr; } }
+  ul { margin: 0; padding-left: 1.1rem; color: var(--text-muted); }
+  li { margin-bottom: 0.3rem; }
+</style>

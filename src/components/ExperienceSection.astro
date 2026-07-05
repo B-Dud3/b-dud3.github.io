@@ -1,0 +1,32 @@
+---
+import { site } from '../data/site';
+import { url } from '../utils/paths';
+---
+<section class="container section" id="experience">
+  <h2 class="section-title">Experience &amp; Education</h2>
+  {site.experience.map((job) => (
+    <article class="job">
+      <h3>{job.role} — {job.org}</h3>
+      <p class="muted">{job.period}</p>
+      <ul>
+        {job.bullets.map((b) => <li>{b}</li>)}
+      </ul>
+    </article>
+  ))}
+  <article class="job">
+    <h3>{site.education.degree}</h3>
+    <p class="muted">{site.education.school}</p>
+  </article>
+  <article class="job">
+    <h3>Publication</h3>
+    <p>
+      <em>{site.publication.title}</em> — {site.publication.venue} [{site.publication.status}]
+    </p>
+  </article>
+  <a class="btn btn-outline" href={url('/resume.pdf')}>Download full resume (PDF)</a>
+</section>
+
+<style>
+  .job { margin-bottom: 2rem; max-width: 780px; }
+  .job ul { color: var(--text-muted); padding-left: 1.1rem; }
+</style>

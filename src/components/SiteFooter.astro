@@ -1,0 +1,21 @@
+---
+import { site } from '../data/site';
+---
+<footer class="footer" id="contact">
+  <div class="container section">
+    <h2>Get in touch</h2>
+    <p class="muted">
+      Interested in autonomous sensing, robotics, or high-reliability hardware? I'd love to hear from you.
+    </p>
+    <a class="btn" href={`mailto:${site.email}`}>{site.email}</a>
+    <p class="small muted">
+      <a href={site.github}>GitHub</a> · <a href={site.linkedin}>LinkedIn</a>
+      <br />© 2026 {site.name}
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--bg-soft); border-top: 1px solid var(--border); }
+  .small { margin-top: 2rem; font-size: 0.9rem; }
+</style>

@@ -1,0 +1,25 @@
+---
+import { site } from '../data/site';
+import { url } from '../utils/paths';
+---
+<header class="container section hero">
+  <p class="muted role">{site.role}</p>
+  <h1>{site.name}</h1>
+  <p class="tagline">{site.tagline}</p>
+  <div class="actions">
+    <a class="btn" href="#projects">View projects</a>
+    <a class="btn btn-outline" href={url('/resume.pdf')}>Download resume (PDF)</a>
+  </div>
+  <p class="links">
+    <a href={site.github}>GitHub</a> · <a href={site.linkedin}>LinkedIn</a> ·
+    <a href={`mailto:${site.email}`}>{site.email}</a>
+  </p>
+</header>
+
+<style>
+  .hero { padding-top: 5.5rem; }
+  .role { font-weight: 600; letter-spacing: 0.02em; margin-bottom: 0.25rem; }
+  .tagline { max-width: 640px; font-size: 1.15rem; color: var(--text-muted); }
+  .actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin: 1.5rem 0 1rem; }
+  .links { font-size: 0.95rem; }
+</style>

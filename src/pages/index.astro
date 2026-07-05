@@ -1,11 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SkillsSection from '../components/SkillsSection.astro';
+import ExperienceSection from '../components/ExperienceSection.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 ---
 <BaseLayout
   title="Brandon LiWang — Mechanical Engineer"
-  description="Portfolio of Brandon LiWang: autonomous sensing platforms, robotics, and embedded systems."
+  description="Portfolio of Brandon LiWang: autonomous sensing platforms, robotics, and embedded systems. UC Berkeley Mechanical Engineering."
 >
-  <main class="container section">
-    <h1>Brandon LiWang</h1>
+  <Hero />
+  <main>
+    <section class="container section" id="projects">
+      <h2 class="section-title">Projects</h2>
+      <!-- Card grid lands here in Task 3 -->
+    </section>
+    <SkillsSection />
+    <ExperienceSection />
   </main>
+  <SiteFooter />
 </BaseLayout>
