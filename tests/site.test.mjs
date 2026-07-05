@@ -113,3 +113,10 @@ test('project dates render on cards and case-study pages', () => {
 test('UGV page shows the My role callout', () => {
   assert.match(readFileSync('dist/projects/ugv-methane/index.html', 'utf8'), /My role:/);
 });
+
+test('publication is a highlighted callout inside experience', () => {
+  const h = home();
+  const exp = h.slice(h.indexOf('id="experience"'), h.indexOf('id="skills"'));
+  assert.match(exp, /class="pub[" ]/);
+  assert.match(exp, /Accepted \(in press\)/);
+});

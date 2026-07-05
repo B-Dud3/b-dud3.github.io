@@ -13,15 +13,13 @@ import { url } from '../utils/paths';
       </ul>
     </article>
   ))}
+  <aside class="pub">
+    <strong>Publication:</strong> <em>{site.publication.title}</em> —
+    {site.publication.venue}, {site.publication.status}.
+  </aside>
   <article class="job">
     <h3>{site.education.degree}</h3>
     <p class="muted">{site.education.school}</p>
-  </article>
-  <article class="job">
-    <h3>Publication</h3>
-    <p>
-      <em>{site.publication.title}</em> — {site.publication.venue} [{site.publication.status}]
-    </p>
   </article>
   <a class="btn btn-outline" href={url('/resume.pdf')}>Download full resume (PDF)</a>
 </section>
@@ -29,4 +27,12 @@ import { url } from '../utils/paths';
 <style>
   .job { margin-bottom: 2rem; max-width: 780px; }
   .job ul { color: var(--text-muted); padding-left: 1.1rem; }
+  .pub {
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 0.85rem 1.1rem;
+    margin: 0 0 2rem;
+    max-width: 780px;
+  }
 </style>
