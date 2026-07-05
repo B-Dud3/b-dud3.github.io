@@ -10,7 +10,7 @@ import { site } from '../data/site';
     <a class="btn" href={`mailto:${site.email}`}>{site.email}</a>
     <p class="small muted">
       <a href={site.github}>GitHub</a> · <a href={site.linkedin}>LinkedIn</a>
-      <br />© 2026 {site.name}
+      <br />© {new Date().getFullYear()} {site.name}
     </p>
   </div>
 </footer>
