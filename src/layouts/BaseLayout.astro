@@ -17,7 +17,7 @@ const siteUrl = Astro.site!;
 let pathname = Astro.url.pathname;
 if (!pathname.endsWith('/')) pathname += '/';
 const canonical = new URL(pathname, siteUrl).href;
-const ogImageAbs = new URL(ogImage ?? url('/og-default.png'), siteUrl).href;
+const ogImageAbs = new URL(ogImage ?? url('/og-default.jpg'), siteUrl).href;
 ---
 <!doctype html>
 <html lang="en">
