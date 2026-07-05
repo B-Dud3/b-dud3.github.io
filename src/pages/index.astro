@@ -7,12 +7,25 @@ import SkillsSection from '../components/SkillsSection.astro';
 import ExperienceSection from '../components/ExperienceSection.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { getPublishedProjects } from '../utils/projects';
+import { site } from '../data/site';
 
 const projects = await getPublishedProjects();
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  url: 'https://b-dud3.github.io/Personal-Website/',
+  jobTitle: 'Mechanical Engineer',
+  affiliation: { '@type': 'CollegeOrUniversity', name: 'University of California, Berkeley' },
+  sameAs: [site.github, site.linkedin],
+  knowsAbout: ['Robotics', 'Autonomous systems', 'Mechanical design', 'Machine learning'],
+};
 ---
 <BaseLayout
-  title="Brandon LiWang — Mechanical Engineer"
-  description="Portfolio of Brandon LiWang: autonomous sensing platforms, robotics, and embedded systems. UC Berkeley Mechanical Engineering."
+  title="Brandon LiWang — Mechanical Engineer, Robotics & Autonomous Systems"
+  description="Portfolio of Brandon LiWang: robotics, autonomous sensing platforms, and embedded systems. UC Berkeley Mechanical Engineering."
+  schema={personSchema}
 >
   <SiteHeader />
   <Hero />

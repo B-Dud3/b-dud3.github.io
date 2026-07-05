@@ -29,6 +29,8 @@ deployed to GitHub Pages at https://b-dud3.github.io/Personal-Website/.
    featured: false   # true pins it to the front of the grid
    github: https://github.com/B-Dud3/repo   # optional
    demo: https://example.com/live-demo      # optional
+   role: One sentence on what was yours.    # optional — shows as a "My role" callout
+   draft: false                             # true hides the project everywhere
    ---
    ```
 
@@ -36,6 +38,8 @@ deployed to GitHub Pages at https://b-dud3.github.io/Personal-Website/.
 4. Push to `main` — the site rebuilds and deploys automatically. A file
    with missing/invalid frontmatter fails the build instead of publishing
    a broken page.
+
+All published projects are also listed at `/projects/`. Draft projects are fully hidden (no page is built).
 
 ## Editing site text
 

@@ -120,3 +120,36 @@ test('publication is a highlighted callout inside experience', () => {
   assert.match(exp, /class="pub[" ]/);
   assert.match(exp, /Accepted \(in press\)/);
 });
+
+test('OG and twitter tags with correct images', () => {
+  const h = home();
+  assert.match(h, /property="og:image" content="https:\/\/b-dud3\.github\.io\/Personal-Website\/og-default\.png"/);
+  assert.match(h, /name="twitter:card" content="summary_large_image"/);
+  const ugv = readFileSync('dist/projects/ugv-methane/index.html', 'utf8');
+  assert.match(ugv, /property="og:image" content="https:\/\/b-dud3\.github\.io\/Personal-Website\/_astro\//);
+});
+
+test('canonical URLs are absolute', () => {
+  assert.match(home(), /rel="canonical" href="https:\/\/b-dud3\.github\.io\/Personal-Website\/"/);
+  assert.match(
+    readFileSync('dist/projects/ugv-methane/index.html', 'utf8'),
+    /rel="canonical" href="https:\/\/b-dud3\.github\.io\/Personal-Website\/projects\/ugv-methane\/"/
+  );
+});
+
+test('home title targets robotics search', () => {
+  assert.match(home(), /<title>Brandon LiWang — Mechanical Engineer, Robotics &amp; Autonomous Systems<\/title>/);
+});
+
+test('JSON-LD Person schema on home', () => {
+  const h = home();
+  assert.match(h, /application\/ld\+json/);
+  assert.match(h, /"@type":"Person"/);
+  assert.match(h, /"name":"Brandon LiWang"/);
+});
+
+test('robots.txt and sitemap are published', () => {
+  assert.ok(existsSync('dist/robots.txt'));
+  assert.match(readFileSync('dist/robots.txt', 'utf8'), /Sitemap: https:\/\/b-dud3\.github\.io\/Personal-Website\/sitemap-index\.xml/);
+  assert.ok(existsSync('dist/sitemap-index.xml'));
+});

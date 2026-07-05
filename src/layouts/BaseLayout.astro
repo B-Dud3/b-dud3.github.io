@@ -8,8 +8,16 @@ import { url } from '../utils/paths';
 interface Props {
   title: string;
   description: string;
+  ogImage?: string;
+  ogType?: string;
+  schema?: Record<string, unknown>;
 }
-const { title, description } = Astro.props;
+const { title, description, ogImage, ogType = 'website', schema } = Astro.props;
+const siteUrl = Astro.site!;
+let pathname = Astro.url.pathname;
+if (!pathname.endsWith('/')) pathname += '/';
+const canonical = new URL(pathname, siteUrl).href;
+const ogImageAbs = new URL(ogImage ?? url('/og-default.png'), siteUrl).href;
 ---
 <!doctype html>
 <html lang="en">
@@ -18,7 +26,18 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageAbs} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbs} />
+    {schema && <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />}
   </head>
   <body>
     <slot />
