@@ -27,3 +27,15 @@ test('resume PDF is published and linked', () => {
   assert.ok(existsSync('dist/resume.pdf'), 'dist/resume.pdf missing');
   assert.match(home(), /\/Personal-Website\/resume\.pdf/);
 });
+
+test('home page lists all four projects', () => {
+  const h = home();
+  assert.match(h, /Methane-Seeking Unmanned Ground Vehicle/);
+  assert.match(h, /Handheld Rolling Sensor Platform/);
+  assert.match(h, /Machine Learning High-Five Counter/);
+  assert.match(h, /3D Printed Bow Quiver/);
+});
+
+test('project cards link through the base path', () => {
+  assert.match(home(), /href="\/Personal-Website\/projects\/ugv-methane\/"/);
+});

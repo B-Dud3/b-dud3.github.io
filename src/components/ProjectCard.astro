@@ -1,0 +1,27 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { url } from '../utils/paths';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+---
+<article class="card">
+  <a class="card-link" href={url(`/projects/${project.id}/`)}>
+    <Image
+      src={project.data.cover}
+      alt={project.data.coverAlt}
+      widths={[400, 800]}
+      sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 350px"
+    />
+    <div class="card-body">
+      <h3>{project.data.title}</h3>
+      <p>{project.data.summary}</p>
+      <div>
+        {project.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+      </div>
+    </div>
+  </a>
+</article>
